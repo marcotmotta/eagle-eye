@@ -111,4 +111,3 @@ process_material = SubResource( 8 )
 stream = ExtResource( 3 )
 volume_db = -25.0
 [connection signal="body_entered" from="." to="." method="_on_Enemy_body_entered"]
-[connection signal="finished" from="Death" to="." method="_on_Death_finished"]

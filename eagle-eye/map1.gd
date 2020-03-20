@@ -18,10 +18,10 @@ func _on_SpawnEnemy_timeout():
 	enemy_instance.position = temp_position
 	add_child(enemy_instance)
 	$SpawnEnemy.wait_time = spawn_delay
-	if spawn_delay > 0.1:
+	if spawn_delay > 2:
 		spawn_delay -= 0.1
 	else:
-		spawn_delay = 0.1
+		spawn_delay = 2
 
 func _on_Button_button_down():
 	get_tree().reload_current_scene()
