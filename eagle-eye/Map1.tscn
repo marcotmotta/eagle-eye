@@ -1,0 +1,123 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://margin.png" type="Texture" id=2]
+[ext_resource path="res://map1.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 400 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 400 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 700, 10 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 700, 10 )
+
+[node name="Map1" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.580392, 1, 0.921569, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer/Control"]
+position = Vector2( 640, 360 )
+texture = ExtResource( 2 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 640, 360 )
+
+[node name="WallLeft" type="StaticBody2D" parent="."]
+position = Vector2( 0, 360 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+shape = SubResource( 1 )
+
+[node name="WallRight" type="StaticBody2D" parent="."]
+position = Vector2( 1280, 360 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
+position = Vector2( 0, -3.49905 )
+shape = SubResource( 2 )
+
+[node name="WallUp" type="StaticBody2D" parent="."]
+position = Vector2( 640, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallUp"]
+shape = SubResource( 3 )
+
+[node name="WallDown" type="StaticBody2D" parent="."]
+position = Vector2( 640, 720 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallDown"]
+shape = SubResource( 4 )
+
+[node name="SpawnEnemy" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="Pause" type="CanvasLayer" parent="."]
+pause_mode = 2
+layer = 100
+
+[node name="Control" type="Control" parent="Pause"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Pause/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.392157 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 37.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Pause/Control/VBoxContainer"]
+margin_right = 1317.0
+margin_bottom = 358.0
+size_flags_vertical = 3
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "Score: 200"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="Button" type="Button" parent="Pause/Control/VBoxContainer"]
+margin_top = 531.0
+margin_right = 1317.0
+margin_bottom = 551.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Play Again"
+[connection signal="timeout" from="SpawnEnemy" to="." method="_on_SpawnEnemy_timeout"]
+[connection signal="button_down" from="Pause/Control/VBoxContainer/Button" to="." method="_on_Button_button_down"]
