@@ -28,6 +28,13 @@ func take_damage(dmg):
 		player.score += 10 + player.combo * 10
 		if player.combo < 4:
 			player.combo += 1
+		$Death.play()
+		$DeathEffect.emitting = true
+		$Sprite.queue_free()
+		$CollisionShape2D.queue_free()
+		$Health.visible = false
+		speed = 0
+		yield(get_tree().create_timer(2), "timeout")
 		queue_free()
 
 func _on_Enemy_body_entered(body):

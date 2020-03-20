@@ -47,6 +47,7 @@ func _process(delta):
 			(bullet_instance.position - \
 			$CenterPoint.get_global_position()).normalized()
 		get_parent().add_child(bullet_instance)
+		$Shoot.play()
 		can_shoot = false
 		yield(get_tree().create_timer(fire_rate), "timeout")
 		can_shoot = true
